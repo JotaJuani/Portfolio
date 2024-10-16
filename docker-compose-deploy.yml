@@ -1,0 +1,24 @@
+services:
+  app:
+    build:
+      context: .
+    volumes:
+      - static_data:/vol/web
+    environment:
+      - SECRET_KEY=samplesecretkey123
+      - ALLOWED_HOSTS=127.0.0.1,localhost
+
+  proxy:
+    build:
+      context: ./proxy
+    volumes:
+      - static_data:/vol/web
+    ports: 
+      - "8000:8000"
+    depends_on:
+     - app
+
+volumes:
+  static_data:
+
+
