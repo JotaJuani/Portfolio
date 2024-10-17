@@ -112,7 +112,7 @@ body{
  
  }
 .project--column{
-    max-width: 300px;
+    max-width: 170px;
     flex: 0 0 auto; 
     text-align: center; 
     margin-bottom: 5px;

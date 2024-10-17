@@ -1,12 +1,11 @@
 from django.db import models
 import uuid
-from ckeditor_uploader.fields import RichTextUploadingField
 
 
 class Project(models.Model):
     title = models.CharField(max_length=200)
     thumbnail = models.ImageField(null=True)
-    body = RichTextUploadingField()
+    body = models.TextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(null=True, blank=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True,
@@ -19,7 +18,7 @@ class Project(models.Model):
 class Skill(models.Model):
     name = models.CharField(max_length=200)
     body = models.TextField(null=True, blank=True)
-    logo = models.ImageField(null=True)
+    logo = models.ImageField(null=True, blank=True)
     slug = models.SlugField(blank=True)
     created = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True,
@@ -87,6 +86,3 @@ class Question(models.Model):
 
     def __str__(self):
         return self.answer
-
-
-

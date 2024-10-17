@@ -4,7 +4,7 @@
   <section class="hero">
     <div class="hero--content">
       <div class="hero--content--intro">
-        <img id="profile_pic" src="{% static 'images/JohnFrusciante.jpg' %}" />
+        <img id="profile_pic" src="{% static 'images/JJPIC.jpeg' %}" />
         <h1 class="intro--name">
           Juan <br />
           Jimenez
@@ -13,7 +13,7 @@
 
       <div class="hero--content--subheadline">
         <h3 class="description">Backend developer</h3>
-        <p class="slogan">I am the beast at programming</p>
+        <p class="slogan">Clarity in Code, Confidence in Results.</p>
       </div>
     </div>
   </section>
@@ -22,7 +22,7 @@
     <h3>My Projects</h3>
     <h5>Projects that make my journey worthwhile</h5>
 
-    <div class="projects--wrapper">
+    <div class="projects--wrapper" id="projects">
       {% for project in projects %}
       <div class="project--column">
         <a href="{% url 'project' project.id %}">
@@ -39,21 +39,18 @@
     </div>
 
     <div class="about--wrapper">
-      <h3>more About Me</h3>
+      <h3>About Me</h3>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.h
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat.
+        Hi, I’m a backend developer with over 2 of experience specializing in
+        creating responsive and efficient web applications. I’m skilled in
+        technologies like Django, JavaScript, and Bootstrap, with a strong focus
+        on delivering scalable and user-friendly solutions. Throughout my
+        career, I’ve worked on a range of projects, from ecommerce platforms
+        with integrated payment APIs to custom applications that enhance user
+        experiences. My approach to development is collaborative,
+        detail-oriented, and driven by the goal of exceeding client
+        expectations. I’m passionate about solving complex problems and
+        continually learning new technologies.
       </p>
     </div>
   </section>
@@ -87,20 +84,23 @@
   <section class="section--1">
     <div class="skills--container">
       <h3>Endorsements</h3>
-      <a class= "btn btn-primary my-3" href="{% url 'endorsement-form' %}">Add a comment!</a>
+      <a class="btn btn-primary my-3" href="{% url 'endorsement-form' %}"
+        >Add a comment!</a
+      >
       {% for i in endorsement %}
-      <div style="margin-bottom: 2em;" class="card">
+      <div style="margin-bottom: 2em" class="card">
         <div class="card-body">
           <h5>{{i.name}}</h5>
           <p>{{i.body}}</p>
         </div>
-      
+      </div>
+
       {% endfor %}
     </div>
   </section>
-      
+
   <section class="section--2">
-    <div class="container">
+    <div class="container" id="contact">
       <form class="contact--form" method="POST">
         {% csrf_token %} {% for field in form %}
         <div class="mb-3">
