@@ -77,7 +77,8 @@ class Question(models.Model):
     TYPES = (
         ('Backend', 'Backend'),
         ('Frontend', 'Frontend'),
-        ('Fulstack', 'Fulstack'),
+        ('Fullstack', 'Fullstack'),
+        ('Recruiter', 'Recruiter'),
     )
     answer = models.CharField(max_length=200, choices=TYPES)
     created = models.DateTimeField(auto_now_add=True)

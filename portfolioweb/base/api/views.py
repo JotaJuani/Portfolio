@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from base.models import Question
-from .serializers import QuestionSerializer
+
 
 
 @api_view(['GET'])
@@ -11,9 +11,12 @@ def votingData(request):
     backend = Question.objects.filter(answer='Backend').count()
     frontend = Question.objects.filter(answer='Frontend').count()
     fullstack = Question.objects.filter(answer='Fullstack').count()
+    recruiter = Question.objects.filter(answer='Recruiter').count()
 
-    print(f"Backend: {backend}, Frontend: {frontend}, Fullstack: {fullstack}")
 
-    return JsonResponse({'backend': backend,
+    
+
+    return Response({'backend': backend,
                          'frontend': frontend,
-                         'fullstack': fullstack, })
+                         'fullstack': fullstack,
+                          'recruiter': recruiter, })
