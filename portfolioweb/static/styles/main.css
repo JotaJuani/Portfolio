@@ -2,6 +2,23 @@ body{
     background-color: #E5E5E5;
     
 }
+* {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.highcharts-figure {
+    min-width: 360px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#map-container {
+    height: 500px;
+}
+
+.highcharts-description {
+    margin: 0.3rem 10px;
+}
 .project--image{
     max-width: 800px;
     

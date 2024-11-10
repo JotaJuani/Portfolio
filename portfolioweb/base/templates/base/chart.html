@@ -1,40 +1,133 @@
 {% extends 'base/main.html' %} {% load static %} {% block content %}
-<div class="map-container">
-  <figure class="highcharts-figure">
-    <div id="map-container"></div>
-    <p class="highcharts-description">
-      Map showing how a TopoJSON map source is handled and how the built-in
-      orthographic projection is used.
-    </p>
-  </figure>
-</div>
+
+<figure class="highcharts-figure">
+  <div id="map-container"></div>
+  <p class="highcharts-description">
+    Map showing how a TopoJSON map source is handled and how the built-in
+    orthographic projection is used.
+  </p>
+</figure>
+
 <script>
   const data = [
-    { name: 'United States of America', value: 1477 },
-    { name: 'Brazil', value: 490 },
-    { name: 'Mexico', value: 882 },
-    { name: 'Canada', value: 161 },
-    { name: 'Sint Maarten', value: 29412 },
-    { name: 'Tuvalu', value: 39063 },
-    { name: 'Wake Island', value: 153846 }
+    { name: "United States of America", value: 1477 },
+    { name: "Brazil", value: 490 },
+    { name: "Mexico", value: 882 },
+    { name: "Canada", value: 161 },
+    { name: "Sint Maarten", value: 29412 },
+    { name: "Tuvalu", value: 39063 },
+    { name: "Wake Island", value: 153846 },
+    {
+      name: "Russia",
+      value: 74,
+    },
+    {
+      name: "Argentina",
+      value: 416,
+    },
+    {
+      name: "Bolivia",
+      value: 789,
+    },
+    {
+      name: "Colombia",
+      value: 805,
+    },
+    {
+      name: "Italy",
+      value: 805,
+    },
+    {
+      name: "Paraguay",
+      value: 2011,
+    },
+    {
+      name: "Indonesia",
+      value: 372,
+    },
+    {
+      name: "South Africa",
+      value: 466,
+    },
+    {
+      name: "Papua New Guinea",
+      value: 1239,
+    },
+    {
+      name: "Germany",
+      value: 1546,
+    },
+    {
+      name: "China",
+      value: 54,
+    },
+    {
+      name: "Chile",
+      value: 647,
+    },
+    {
+      name: "Australia",
+      value: 62,
+    },
+    {
+      name: "France",
+      value: 844,
+    },
+    {
+      name: "United Kingdom",
+      value: 1901,
+    },
+    {
+      name: "Venezuela",
+      value: 503,
+    },
+    {
+      name: "Ecuador",
+      value: 1560,
+    },
+    {
+      name: "India",
+      value: 116,
+    },
+    {
+      name: "Iran",
+      value: 208,
+    },
+    {
+      name: "Guatemala",
+      value: 2716,
+    },
+    {
+      name: "Philippines",
+      value: 828,
+    },
+    {
+      name: "Sweden",
+      value: 563,
+    },
+    {
+      name: "Saudi Arabia",
+      value: 100,
+    },
   ];
-
-  // Add graticule lines
   const getGraticule = () => {
     const data = [];
     for (let x = -180; x <= 180; x += 15) {
       data.push({
         geometry: {
-          type: 'LineString',
-          coordinates: x % 90 === 0 ? [
-            [x, -90],
-            [x, 0],
-            [x, 90]
-          ] : [
-            [x, -80],
-            [x, 80]
-          ]
-        }
+          type: "LineString",
+          coordinates:
+            x % 90 === 0
+              ? [
+                  [x, -90],
+                  [x, 0],
+                  [x, 90],
+                ]
+              : [
+                  [x, -80],
+                  [x, 80],
+                ],
+        },
       });
     }
     for (let y = -90; y <= 90; y += 10) {
@@ -44,48 +137,104 @@
       }
       data.push({
         geometry: {
-          type: 'LineString',
-          coordinates
+          type: "LineString",
+          coordinates,
         },
-        lineWidth: y === 0 ? 2 : undefined
+        lineWidth: y === 0 ? 2 : undefined,
       });
     }
     return data;
   };
 
   Highcharts.getJSON(
-    'https://code.highcharts.com/mapdata/custom/world.topo.json',
-    topology => {
-      const chart = Highcharts.mapChart('map-container', {
+    "https://code.highcharts.com/mapdata/custom/world.topo.json",
+    (topology) => {
+      const chart = Highcharts.mapChart("map-container", {
         chart: {
-          map: topology
+          map: topology,
+          projection: {
+            name: "Orthographic",
+          },
+          options3d: {
+            enabled: true,
+            alpha: 40,
+            beta: 0,
+            depth: 200,
+            viewDistance: 15,
+            fitToPlot: true,
+          },
+          events: {
+            load() {
+              const chart = this;
+              chart.container.onmousedown = function (e) {
+                e.preventDefault();
+                chart.isDragging = true;
+                chart.mouseDownX = e.clientX;
+                chart.mouseDownY = e.clientY;
+              };
+              chart.container.onmousemove = function (e) {
+                if (chart.isDragging) {
+                  console.log("Rotating map");
+                  chart.update(
+                    {
+                      chart: {
+                        options3d: {
+                          beta:
+                            chart.options.chart.options3d.beta +
+                            (e.clientX - chart.mouseDownX) / 10,
+                          alpha:
+                            chart.options.chart.options3d.alpha +
+                            (chart.mouseDownY - e.clientY) / 10,
+                        },
+                      },
+                    },
+                    undefined,
+                    false,
+                    false
+                  );
+                  chart.mouseDownX = e.clientX;
+                  chart.mouseDownY = e.clientY;
+                }
+              };
+              chart.container.onmouseup = function () {
+                chart.isDragging = false;
+              };
+            },
+          },
         },
         title: {
-          text: 'Airport density per country'
+          text: "Airport density per country",
         },
         subtitle: {
-          text: 'Source: citypopulation.de'
+          text: "Source: citypopulation.de",
         },
         colorAxis: {
-          minColor: '#BFCFAD',
-          maxColor: '#31784B',
-          max: 1000
+          minColor: "#BFCFAD",
+          maxColor: "#31784B",
+          max: 1000,
         },
-        series: [{
-          name: 'Graticule',
-          type: 'mapline',
-          data: getGraticule(),
-          nullColor: 'rgba(0, 0, 0, 0.05)',
-          enableMouseTracking: false
-        }, {
-          data,
-          joinBy: 'name',
-          name: 'Airports per million km²'
-        }]
+        series: [
+          {
+            name: "Graticule",
+            type: "mapline",
+            data: getGraticule(),
+            nullColor: "rgba(0, 0, 0, 0.05)",
+            enableMouseTracking: false,
+            enable3d: true,
+          },
+          {
+            data,
+            joinBy: "name",
+            name: "Airports per million km²",
+            enable3d: true,
+          },
+        ],
       });
     }
   );
 </script>
+
+---------------------------------------------
 <div class="container" style="margin-top: 1000px">
   <figure class="highcharts-figure">
     <div id="container"></div>
