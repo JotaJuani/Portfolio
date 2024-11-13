@@ -14,24 +14,6 @@
   </figure>
 </div>
 <script>
-
-// Map data
-  
-  const data = [
-    {
-      name: "Buenos Aires",
-      value: 3500,
-    },
-    {
-      name: "Brazil",
-      value: 1536,
-    },
-    {
-      name: "Chile",
-      value: 536,
-    },
-  ];
-
   const getGraticule = () => {
     const data = [];
 
@@ -73,200 +55,167 @@
     return data;
   };
 
-  // Add flight route after initial animation
-  const afterAnimate = (e) => {
-    const chart = e.target.chart;
-
-    if (!chart.get("flight-route")) {
-      chart.addSeries(
-        {
-          type: "mapline",
-          name: "Flight route, Amsterdam - Los Angeles",
-          animation: false,
-          id: "flight-route",
-          data: [
-            {
-              geometry: {
-                type: "LineString",
-                coordinates: [[0, 0]],
+  
+</script>
+<div style="width: 300px; margin: 0 auto; margin-top: 20px">
+    <form method="post">
+      {% csrf_token %} {% for field in Countryform %}
+      <div class="mb-3">
+        <label for="{{ field.id_for_label }}" class="form-label"
+          >{{ field.label }}</label
+        >
+        {{ field }}
+      </div>
+      {% endfor %}
+      <input
+        class="btn btn-primary"
+        type="submit"
+        name="Countryform"
+        value="Vote for country"
+      />
+    </form>
+  </div>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    fetch("/api/world-country-data/")
+      .then((response) => response.json())
+      .then((data) => {
+        Highcharts.getJSON(
+          "https://code.highcharts.com/mapdata/custom/world.topo.json",
+          (topology) => {
+            const chart = Highcharts.mapChart("map-container", {
+              chart: {
+                map: topology,
               },
-              color: "#313f77",
-            },
-          ],
-          lineWidth: 2,
-          accessibility: {
-            exposeAsGroupOnly: true,
-          },
-        },
-        false
-      );
-      chart.addSeries(
-        {
-          type: "mappoint",
-          animation: false,
-          data: [
-            {
-              name: "Buenos Aires",
-              geometry: {
-                type: "Point",
-                coordinates: [-58.6, -35.58],
-              },
-            },
-          ],
-          color: "#313f77",
-          accessibility: {
-            enabled: false,
-          },
-        },
-        false
-      );
-      chart.redraw(false);
-    }
-  };
-
-  Highcharts.getJSON(
-    "https://code.highcharts.com/mapdata/custom/world.topo.json",
-    (topology) => {
-      const chart = Highcharts.mapChart("map-container", {
-        chart: {
-          map: topology,
-        },
-
-        title: {
-          text: "Where are you from?",
-          floating: true,
-          align: "left",
-          style: {
-            textOutline: "2px white",
-          },
-        },
-
-        subtitle: {
-          text: "Source: <a href=##</a><br>" + "",
-          floating: true,
-          y: 34,
-          align: "left",
-        },
-
-        legend: {
-          enabled: false,
-        },
-
-        mapNavigation: {
-          enabled: true,
-          enableDoubleClickZoomTo: true,
-          buttonOptions: {
-            verticalAlign: "bottom",
-          },
-        },
-
-        mapView: {
-          maxZoom: 30,
-          projection: {
-            name: "Orthographic",
-            rotation: [60, -30],
-          },
-        },
-
-        colorAxis: {
-          tickPixelInterval: 100,
-          minColor: "#64F09C",
-          maxColor: "#31784B",
-          max: 500,
-        },
-
-        tooltip: {
-          pointFormat: "{point.name}: {point.value}",
-        },
-
-        plotOptions: {
-          series: {
-            animation: {
-              duration: 750,
-            },
-            clip: false,
-          },
-        },
-        series: [
-          {
-            name: "Graticule",
-            id: "graticule",
-            type: "mapline",
-            data: getGraticule(),
-            nullColor: "rgba(0, 0, 0, 0.05)",
-            accessibility: {
-              enabled: false,
-            },
-            enableMouseTracking: false,
-          },
-          {
-            data: countryData,
-            joinBy: "name",
-            name: "people were in this website from",
-            states: {
-              hover: {
-                color: "#a4edba",
-                borderColor: "#333333",
-              },
-            },
-            dataLabels: {
-              enabled: false,
-              format: "{point.name}",
-            },
-            events: {
-              afterAnimate,
-            },
-            accessibility: {
-              exposeAsGroupOnly: true,
-            },
-          },
-        ],
-      });
-
-      // Render a circle filled with a radial gradient behind the globe to
-      // make it appear as the sea around the continents
-      const renderSea = () => {
-        let verb = "animate";
-        if (!chart.sea) {
-          chart.sea = chart.renderer
-            .circle()
-            .attr({
-              fill: {
-                radialGradient: {
-                  cx: 0.4,
-                  cy: 0.4,
-                  r: 1,
+              title: {
+                text: "Where are you from?",
+                floating: true,
+                align: "left",
+                style: {
+                  textOutline: "2px white",
                 },
-                stops: [
-                  [0, "white"],
-                  [1, "lightblue"],
-                ],
               },
-              zIndex: -1,
-            })
-            .add(chart.get("graticule").group);
-          verb = "attr";
-        }
+              subtitle: {
+                text: "Source: <a href=##</a><br>",
+                floating: true,
+                y: 34,
+                align: "left",
+              },
+              legend: {
+                enabled: false,
+              },
+              mapNavigation: {
+                enabled: true,
+                enableDoubleClickZoomTo: true,
+                buttonOptions: {
+                  verticalAlign: "bottom",
+                },
+              },
+              mapView: {
+                maxZoom: 30,
+                projection: {
+                  name: "Orthographic",
+                  rotation: [60, -30],
+                },
+              },
+              colorAxis: {
+                tickPixelInterval: 100,
+                minColor: "#64F09C",
+                maxColor: "#31784B",
+                max: 50,
+                min: 1,
+              },
+              tooltip: {
+                pointFormat: "{point.name}: {point.value}",
+              },
+              plotOptions: {
+                series: {
+                  animation: {
+                    duration: 750,
+                  },
+                  clip: false,
+                },
+              },
+              series: [
+                {
+                  name: "Graticule",
+                  id: "graticule",
+                  type: "mapline",
+                  data: getGraticule(),
+                  nullColor: "rgba(0, 0, 0, 0.05)",
+                  accessibility: {
+                    enabled: false,
+                  },
+                  enableMouseTracking: false,
+                },
+                {
+                  data: data, // Usando `data` directamente desde el backend
+                  joinBy: "name",
+                  name: "people were in this website from",
+                  states: {
+                    hover: {
+                      color: "#a4edba",
+                      borderColor: "#333333",
+                    },
+                  },
+                  dataLabels: {
+                    enabled: false,
+                    format: "{point.name}",
+                  },
+                  accessibility: {
+                    exposeAsGroupOnly: true,
+                  },
+                },
+              ],
+            });
 
-        const bounds = chart.get("graticule").bounds,
-          p1 = chart.mapView.projectedUnitsToPixels({
-            x: bounds.x1,
-            y: bounds.y1,
-          }),
-          p2 = chart.mapView.projectedUnitsToPixels({
-            x: bounds.x2,
-            y: bounds.y2,
-          });
-        chart.sea[verb]({
-          cx: (p1.x + p2.x) / 2,
-          cy: (p1.y + p2.y) / 2,
-          r: Math.min(p2.x - p1.x, p1.y - p2.y) / 2,
-        });
-      };
-      renderSea();
-      Highcharts.addEvent(chart, "redraw", renderSea);
-    }
-  );
+            // Render a circle filled with a radial gradient behind the globe to
+            // make it appear as the sea around the continents
+            const renderSea = () => {
+              let verb = "animate";
+              if (!chart.sea) {
+                chart.sea = chart.renderer
+                  .circle()
+                  .attr({
+                    fill: {
+                      radialGradient: {
+                        cx: 0.4,
+                        cy: 0.4,
+                        r: 1,
+                      },
+                      stops: [
+                        [0, "white"],
+                        [1, "lightblue"],
+                      ],
+                    },
+                    zIndex: -1,
+                  })
+                  .add(chart.get("graticule").group);
+                verb = "attr";
+              }
+
+              const bounds = chart.get("graticule").bounds,
+                p1 = chart.mapView.projectedUnitsToPixels({
+                  x: bounds.x1,
+                  y: bounds.y1,
+                }),
+                p2 = chart.mapView.projectedUnitsToPixels({
+                  x: bounds.x2,
+                  y: bounds.y2,
+                });
+              chart.sea[verb]({
+                cx: (p1.x + p2.x) / 2,
+                cy: (p1.y + p2.y) / 2,
+                r: Math.min(p2.x - p1.x, p1.y - p2.y) / 2,
+              });
+            };
+            renderSea();
+            Highcharts.addEvent(chart, "redraw", renderSea);
+          }
+        );
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  });
 </script>
 
 <div class="container" style="margin-top: 400px">
@@ -283,20 +232,14 @@
       {{field}}
     </div>
     {% endfor %}
-    <input class="btn btn-primary" type="submit" name="Questionform" value="Vote for role" />
+    <input
+      class="btn btn-primary"
+      type="submit"
+      name="Questionform"
+      value="Vote for role"
+    />
   </form>
-  <div style="width: 300px; margin: 0 auto; margin-top: 20px;">
-    <form method="post">
-        {% csrf_token %}
-        {% for field in Countryform %}
-        <div class="mb-3">
-            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-            {{ field }}
-        </div>
-        {% endfor %}
-        <input class="btn btn-primary" type="submit" name="Countryform" value="Vote for country" />
-    </form>
-</div>
+  
 </div>
 
 <script>
