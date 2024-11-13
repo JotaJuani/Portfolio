@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from base.models import Question, Country
-
+from django.db import models
 
 
 @api_view(['GET'])
@@ -23,7 +23,10 @@ def votingData(request):
 
 @api_view(['GET'])
 def WorldCountryData(request):
-    country_counts = Country.objects.values('answer').annotate(count=models.Count('answer'))
+    country_counts = list(Country.objects.values('answer').annotate(count=models.Count('answer')))
     data = {item['answer']: item['count'] for item in country_counts}
-    return Response({'data': data,
-                          })
+    for item in data:
+        item['name'] = item.pop('answer')
+
+    return Response(data, safe=True
+                          )
