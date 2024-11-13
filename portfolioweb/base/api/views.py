@@ -23,6 +23,7 @@ def votingData(request):
 def WorldCountryData(request):
     country_counts = list(Country.objects.values(
         'answer').annotate(count=models.Count('answer')))
-    data = {item['answer']: item['count'] for item in country_counts}
+    unformated_data = {item['answer']: item['count'] for item in country_counts}
+    data = [{"name": country, "value": count} for country, count in unformated_data.items()]
     print(data)
     return Response(data)

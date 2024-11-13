@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from base.models import Question
+from base.models import Question, Country
 
 
 class QuestionSerializer(serializers.ModelSerializer):
@@ -7,3 +7,8 @@ class QuestionSerializer(serializers.ModelSerializer):
         model = Question
         fields = '__all__'
 
+
+class CountrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Country
+        fields = '__all__'

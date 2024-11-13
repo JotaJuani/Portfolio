@@ -54,27 +54,25 @@
 
     return data;
   };
-
-  
 </script>
 <div style="width: 300px; margin: 0 auto; margin-top: 20px">
-    <form method="post">
-      {% csrf_token %} {% for field in Countryform %}
-      <div class="mb-3">
-        <label for="{{ field.id_for_label }}" class="form-label"
-          >{{ field.label }}</label
-        >
-        {{ field }}
-      </div>
-      {% endfor %}
-      <input
-        class="btn btn-primary"
-        type="submit"
-        name="Countryform"
-        value="Vote for country"
-      />
-    </form>
-  </div>
+  <form method="post">
+    {% csrf_token %} {% for field in Countryform %}
+    <div class="mb-3">
+      <label for="{{ field.id_for_label }}" class="form-label"
+        >{{ field.label }}</label
+      >
+      {{ field }}
+    </div>
+    {% endfor %}
+    <input
+      class="btn btn-primary"
+      type="submit"
+      name="Countryform"
+      value="Vote for country"
+    />
+  </form>
+</div>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     fetch("/api/world-country-data/")
@@ -120,8 +118,8 @@
               },
               colorAxis: {
                 tickPixelInterval: 100,
-                minColor: "#64F09C",
-                maxColor: "#31784B",
+                minColor: "9ff4c4",
+                maxColor: "#186a3b",
                 max: 50,
                 min: 1,
               },
@@ -149,7 +147,7 @@
                   enableMouseTracking: false,
                 },
                 {
-                  data: data, // Usando `data` directamente desde el backend
+                  data: data,
                   joinBy: "name",
                   name: "people were in this website from",
                   states: {
@@ -239,7 +237,6 @@
       value="Vote for role"
     />
   </form>
-  
 </div>
 
 <script>

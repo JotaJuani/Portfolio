@@ -92,7 +92,10 @@ class Country(models.Model):
     TYPES = (
         ('Argentina', 'Argentina'),
         ('Brazil', 'Brazil'),
-        ('Chile', 'Chile'),
+        ('United States', 'United States'),
+        ('Canada', 'Canada'),
+        ('Uruguay', 'Uruguay'),
+        ('Italy', 'Italy'),
         
     )
     answer = models.CharField(max_length=200, choices=TYPES)
