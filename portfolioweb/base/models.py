@@ -87,3 +87,18 @@ class Question(models.Model):
 
     def __str__(self):
         return self.answer
+
+class Country(models.Model):
+    TYPES = (
+        ('Argentina', 'Argentina'),
+        ('Brazil', 'Brazil'),
+        ('Chile', 'Chile'),
+        
+    )
+    answer = models.CharField(max_length=200, choices=TYPES)
+    created = models.DateTimeField(auto_now_add=True)
+    id = models.UUIDField(default=uuid.uuid4, unique=True,
+                          primary_key=True, editable=False)
+
+    def __str__(self):
+        return self.answer

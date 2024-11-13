@@ -14,58 +14,21 @@
   </figure>
 </div>
 <script>
+
+// Map data
+  
   const data = [
     {
-      name: "United States of America",
-      value: 1477,
+      name: "Buenos Aires",
+      value: 3500,
     },
     {
       name: "Brazil",
-      value: 490,
+      value: 1536,
     },
     {
-      name: "Mexico",
-      value: 882,
-    },
-    {
-      name: "Canada",
-      value: 161,
-    },
-    {
-      name: "Russia",
-      value: 74,
-    },
-    {
-      name: "Argentina",
-      value: 416,
-    },
-    {
-      name: "Bolivia",
-      value: 789,
-    },
-    {
-      name: "Colombia",
-      value: 805,
-    },
-    {
-      name: "Paraguay",
-      value: 2011,
-    },
-    {
-      name: "Indonesia",
-      value: 372,
-    },
-    {
-      name: "South Africa",
-      value: 466,
-    },
-    {
-      name: "Tuvalu",
-      value: 39063,
-    },
-    {
-      name: "Wake Island",
-      value: 153846,
+      name: "Chile",
+      value: 536,
     },
   ];
 
@@ -146,7 +109,7 @@
               name: "Buenos Aires",
               geometry: {
                 type: "Point",
-                coordinates: [-58.60, -35.58],
+                coordinates: [-58.6, -35.58],
               },
             },
           ],
@@ -207,9 +170,9 @@
 
         colorAxis: {
           tickPixelInterval: 100,
-          minColor: "#BFCFAD",
+          minColor: "#64F09C",
           maxColor: "#31784B",
-          max: 1000,
+          max: 500,
         },
 
         tooltip: {
@@ -224,7 +187,6 @@
             clip: false,
           },
         },
-
         series: [
           {
             name: "Graticule",
@@ -240,7 +202,7 @@
           {
             data,
             joinBy: "name",
-            name: "Airports per million km²",
+            name: "people were in this website from",
             states: {
               hover: {
                 color: "#a4edba",
@@ -313,16 +275,28 @@
   </figure>
 
   <form style="width: 300px; margin: 0 auto" method="post">
-    {% csrf_token %} {% for field in form %}
+    {% csrf_token %} {% for field in Questionform %}
     <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label"
+      <label for="{{ field.id_for_label }}" class="form-label"
         >{{field.label}}</label
       >
       {{field}}
     </div>
     {% endfor %}
-    <input class="btn btn-primary" type="submit" value="Place your vote" />
+    <input class="btn btn-primary" type="submit" name="Questionform" value="Vote for role" />
   </form>
+  <div style="width: 300px; margin: 0 auto; margin-top: 20px;">
+    <form method="post">
+        {% csrf_token %}
+        {% for field in Countryform %}
+        <div class="mb-3">
+            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+            {{ field }}
+        </div>
+        {% endfor %}
+        <input class="btn btn-primary" type="submit" name="Countryform" value="Vote for country" />
+    </form>
+</div>
 </div>
 
 <script>

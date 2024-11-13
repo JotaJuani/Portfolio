@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Project, Message, Skill, Endorsement, Comment, Question
+from .models import Project, Message, Skill, Endorsement, Comment, Question, Country
 
 
 class ProjectForm(ModelForm):
@@ -85,4 +85,16 @@ class QuestionForm(ModelForm):
         super(QuestionForm, self).__init__(*args, **kwargs)
         self.fields['answer'].widget.attrs.update(
             {'class': 'form-control',
-             'placeholder': 'select a type'})
+             'placeholder': 'Select a type'})
+
+
+class CountryForm(ModelForm):
+    class Meta:
+        model = Country
+        fields = ['answer']
+
+    def __init__(self, *args, **kwargs):
+        super(CountryForm, self).__init__(*args, **kwargs)
+        self.fields['answer'].widget.attrs.update(
+            {'class': 'form-control',
+             'placeholder': 'Select a country'})

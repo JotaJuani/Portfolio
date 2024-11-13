@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Project, Skill, Message, Endorsement
-from .forms import ProjectForm, MessageForm, SkillForm, EndorsementForm, CommentForm, QuestionForm
+from .forms import ProjectForm, MessageForm, SkillForm, EndorsementForm, CommentForm, QuestionForm, CountryForm
 from django.contrib import messages
 
 
@@ -104,13 +104,24 @@ def addEndorsement(request):
 
 
 def chartPage(request):
-    form = QuestionForm()
+    Questionform = QuestionForm()
+    Countryform = CountryForm()
 
     if request.method == 'POST':
-        form = QuestionForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'thank you for you vote!')
-            return redirect('chart')
+        if 'Questionform' in request.POST:
+            Questionform = QuestionForm(request.POST)
+            if Questionform.is_valid():
+                Questionform.save()
+                messages.success(request, 'Thank you for your vote!')
+                return redirect('chart')
+            
+        if 'Countryform' in request.POST:
+            Countryform = CountryForm(request.POST)
+            if Countryform.is_valid():
+                    Countryform.save()
+                    messages.success(request, 'Thank you for your vote in country!')
+                    return redirect('chart')
         
-    return render(request, 'base/chart.html', {'form': form})
+    return render(request, 'base/chart.html', {'Countryform': Countryform, 'Questionform': Questionform})
+
+

@@ -7,6 +7,8 @@ services:
       - "8000:8000"
     volumes:
       - ./portfolioweb:/portfolioweb
+      - ./vol/web/media:/vol/web/media  
+      - ./vol/web/static:/vol/web/static
     command : sh -c "python manage.py runserver 0.0.0.0:8000"
     environment:
       - DEBUG=1
