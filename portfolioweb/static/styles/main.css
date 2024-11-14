@@ -1,6 +1,17 @@
 body{
-    background-color: #E5E5E5;
+    background-color: #46677D;
+    position:relative;
     
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: Helvetica, Arial, sans-serif;
+    color:
+    #fff;
+}
+p {
+    font-family: Helvetica, Arial, sans-serif;
+    color:
+    #fff;
 }
 * {
     font-family: Helvetica, Arial, sans-serif;
@@ -28,21 +39,44 @@ body{
     
 }
 .section--2{
-    background-color: #fff;
+    background-color: #46677D;
     padding-top: 2em;
     padding-bottom: 2em;
 }
 
 .section--1{
-    background-color: #E5E5E5;
+    background-color: #46677D;
     padding-top: 2em;
     padding-bottom: 2em;
     text-align: center;
     
 }
+.section--3{
+    background-color: #46677D;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    
+    
+}
+.section--3 h5{
+    color: black;
+    
+    padding-bottom: 1em;
+    
+}
+.section--3 p{
+    color: black;
+}
+.section--4{
+    background-color: #46677D;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    
+    
+}
 
 .navigation-bar {
-    background-color: #354955;
+    background-color:#88b2cc ;
     height: 50px;
     display: flex;
     justify-content: center;
@@ -57,7 +91,7 @@ body{
 }
 
 .hero{
-    background-color: #1F2428;
+    background-color: 000B58;
     width:100%;
     min-height: 100%;
     color: #fff;
@@ -150,9 +184,14 @@ body{
 .project--body{
     background-color: #fff;
     padding: 1em;
-    height: 40%;
+    height: 45%;
+    
 }
-
+.project--body h5{
+    margin: 0 auto;
+    padding: 3em 0;
+    color:#1F2428;
+}
 
 .skills--container{
     width: 600px;
