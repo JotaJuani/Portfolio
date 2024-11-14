@@ -1,5 +1,6 @@
 from django.db import models
 import uuid
+import pycountry
 
 
 class Project(models.Model):
@@ -88,15 +89,11 @@ class Question(models.Model):
     def __str__(self):
         return self.answer
 
+
 class Country(models.Model):
     TYPES = (
-        ('Argentina', 'Argentina'),
-        ('Brazil', 'Brazil'),
-        ('United States', 'United States'),
-        ('Canada', 'Canada'),
-        ('Uruguay', 'Uruguay'),
-        ('Italy', 'Italy'),
-        
+        [(country.name, country.name) for country in pycountry.countries]
+
     )
     answer = models.CharField(max_length=200, choices=TYPES)
     created = models.DateTimeField(auto_now_add=True)
