@@ -21,22 +21,23 @@
   <section class="container section--1">
     <h3>My Projects</h3>
     <h5>Projects that make my journey worthwhile</h5>
-
+    <section class="cards-wrapper">
     <div class="projects--wrapper" id="projects">
       {% for project in projects %}
-      <div class="project--column">
-        <a href="{% url 'project' project.id %}">
-          <img class="project--thumbnail" src="{{project.thumbnail.url}}" />
+      <div class="project-card">
+        <a href="{% url 'project' project.id %}" class="project-link">
+          <div class="project-image-card" style="background-image: url('{{ project.thumbnail.url }}');">
+            <h1>{{ project.title }}</h1>
+          </div>
         </a>
-
-        <div class="project--body">
-          <h5>{{project.title}}</h5>
-        </div>
       </div>
       {% empty %}
       <h3>No projects in the database</h3>
       {% endfor %}
     </div>
+  </section>
+  </section>
+
 
     <div class="about--wrapper">
       <h3>About Me</h3>
@@ -54,6 +55,22 @@
       </p>
     </div>
   </section>
+
+
+<section class="cards-wrapper">
+  <div class="card-grid-space">
+    <a class="project-card" href="https://codetheweb.blog/2017/10/06/html-syntax/" style="--bg-img: url(https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/html-syntax/cover.jpg)">
+      <div>
+        <h1>HTML Syntax</h1>
+        <p>The syntax of a language is how it works. How to actually write it. Learn HTML syntax…</p>
+        <div class="tags">
+          <div class="tag">HTML</div>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
   <section class="section--2">
     <div class="skills--container">
       <h3>More About Me</h3>
