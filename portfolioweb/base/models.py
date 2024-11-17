@@ -61,7 +61,7 @@ class Endorsement(models.Model):
     featured = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.body[:40]
+        return self.body[:70]
 
 
 class Comment(models.Model):

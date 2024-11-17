@@ -97,7 +97,9 @@ def addEndorsement(request):
     if request.method == 'POST':
         form = EndorsementForm(request.POST)
         form.save()
-        messages.success(request, 'Comment sent successfully')
+        messages.success(
+            request, 'Thank you! Your comment was submitted and is pending approval from Juani.')
+        return redirect('endorsement-form')
     context = {'form':  form}
 
     return render(request, 'base/endorsement_form.html', context)
@@ -114,14 +116,13 @@ def chartPage(request):
                 Questionform.save()
                 messages.success(request, 'Thank you for your vote!')
                 return redirect('chart')
-            
+
         if 'Countryform' in request.POST:
             Countryform = CountryForm(request.POST)
             if Countryform.is_valid():
-                    Countryform.save()
-                    messages.success(request, 'Thank you for your vote in country!')
-                    return redirect('chart')
-        
+                Countryform.save()
+                messages.success(
+                    request, 'Thank you for your vote in country!')
+                return redirect('chart')
+
     return render(request, 'base/chart.html', {'Countryform': Countryform, 'Questionform': Questionform})
-
-
