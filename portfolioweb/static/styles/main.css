@@ -250,8 +250,11 @@ a.icon.alt:active:before {
 
 #map-container {
     height: 500px;
-    margin-top:80px;
+    margin-top:70px;
 }
+#map-container h5{ 
+    margin-top: 10px;
+ }
 #container {
     height: 500px;
 }
@@ -259,7 +262,9 @@ a.icon.alt:active:before {
     margin: 0.3rem 10px;
 }
 .project--image{
+    margin-top: 40px;
     max-width: 800px;
+    max-height: 800%;
     
 }
 .section--2{
