@@ -551,10 +551,31 @@ form {
     padding: 3px 20px;
     border-radius: 20px;
 }
-.about--wrapper{
-    align-items: center;
-    justify-items: center;
-}
+.about--wrapper {
+    display: flex;
+    align-items: center; 
+    justify-content: space-between;
+    gap: 20px; 
+  }
+  
+  .about-video {
+    flex: 0 0 30%;
+    aspect-ratio: 1; 
+    background-color: #ddd; 
+  }
+  
+  .description-text {
+    flex: 0 0 70%; 
+  }
+  
+  .description-text h3 {
+    margin-bottom: 10px;
+  }
+  
+  .description-text p {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
 
 .contact--form{
     display:block;
