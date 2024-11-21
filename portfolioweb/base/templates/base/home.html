@@ -90,7 +90,7 @@
 
 
         <div id="main"> <h1>Some of my data analysis projects</h1>
-        <!-- One -->
+        
         <section id="one" class="tiles">
           <article>
             <span class="image">
@@ -150,9 +150,7 @@
   <section class="section--3">
     <div class="skills--container">
       <h3>Endorsements</h3>
-      <a class="btn btn-primary my-3" href="{% url 'endorsement-form' %}"
-        >Add a comment!</a
-      >
+      
       {% for i in endorsement %}
       <div style="margin-bottom: 2em" class="card">
         <div class="card-body">
@@ -160,8 +158,10 @@
           <p>{{i.body}}</p>
         </div>
       </div>
-
       {% endfor %}
+      <a class="btn btn-primary my-3" href="{% url 'endorsement-form' %}"
+        >Add a comment!</a
+      >
     </div>
   </section>
 </body>
