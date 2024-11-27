@@ -93,7 +93,6 @@ class Question(models.Model):
 class Country(models.Model):
     TYPES = (
         [(country.name, country.name) for country in pycountry.countries]
-
     )
     answer = models.CharField(max_length=200, choices=TYPES)
     created = models.DateTimeField(auto_now_add=True)
