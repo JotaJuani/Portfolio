@@ -44,7 +44,6 @@ p {
             cursor: default;
             list-style: none;
             padding-left: 0;
-            margin-top:10px;
         }
     
             ul.icons li {
@@ -560,8 +559,9 @@ form {
   }
   
   .about-video {
-    width:320px;
-    height:215px;
+    flex: 0 0 30%;
+    aspect-ratio: 1; 
+    background-color: #ddd; 
   }
   
   .description-text {
