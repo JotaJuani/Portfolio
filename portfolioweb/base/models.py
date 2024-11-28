@@ -101,16 +101,16 @@ class Country(models.Model):
                           primary_key=True, editable=False)
 
     def save(self, *args, **kwargs):
-        # Lógica de mapeo automático
+
         COUNTRY_NAME_MAPPING = {
             "United States": "United States of America",
             "Korea, Republic of": "South Korea",
             "Russian Federation": "Russia",
         }
-        # Aplica el mapeo si no se ha especificado `highcharts_name`
-        if not self.mapped_answer:
-            self.mapped_answer = COUNTRY_NAME_MAPPING.get(
-                self.answer, self.answer)
+
+        mapped_value = COUNTRY_NAME_MAPPING.get(self.answer, self.answer)
+        self.mapped_answer = mapped_value
+        self.answer = mapped_value
         super().save(*args, **kwargs)
 
     def __str__(self):
