@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
-from .models import Project, Skill, Message, Endorsement
-from .forms import ProjectForm, MessageForm, SkillForm, EndorsementForm, CommentForm, QuestionForm, CountryForm
+from .models import Project, Skill, Contact, Endorsement
+from .forms import ProjectForm, SkillForm, EndorsementForm, CommentForm, QuestionForm, CountryForm, ContactForm
 from django.contrib import messages
+from django.core.mail import send_mail, EmailMessage
+from django.conf import settings
+
 
 
 def homePage(request):
@@ -9,11 +12,11 @@ def homePage(request):
     detailedSkills = Skill.objects.exclude(body='')
 
     skills = Skill.objects.filter(body='')
-    form = MessageForm()
+    form = ContactForm()
     endorsement = Endorsement.objects.filter(approved=True)
 
     if request.method == 'POST':
-        form = MessageForm(request.POST)
+        form =  ContactForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, 'Message sent successfully')
@@ -66,21 +69,51 @@ def EditProject(request, pk):
     context = {'form': form}
     return render(request, 'base/project_form.html', context)
 
-
+'''
 def inboxPage(request):
     inbox = Message.objects.all().order_by('is_read')
     unreadCount = Message.objects.filter(is_read=False).count()
     context = {'inbox': inbox, 'unreadCount': unreadCount}
     return render(request, 'base/inbox.html', context)
+'''
 
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            print('the form is valid')
+            name = request.POST['name']
+            email = request.POST['email']
+            subject = request.POST['subject']
+            content = request.POST['content']
 
+            email_message = EmailMessage(
+                subject=f'Contact Form from {name}',
+                body=content,
+                subject=subject,
+                from_email=email,
+                to=[settings.EMAIL_HOST_USER],
+                reply_to=[email],)
+            email_message.send(fail_silently=False),
+
+            print(email)
+            return render(request, 'contact/contact.html')
+    else:
+        form = ContactForm()
+
+    context = {'form': form, }
+    return render(request, 'contact/contact.html', context)
+
+'''
 def messagePage(request, pk):
+    form = MessageForm
     message = Message.objects.get(id=pk)
     message.is_read = True
     message.save()
-    context = {'message': message}
+    context = {'message': message,
+               'form': form}
     return render(request, 'base/message.html', context)
-
+'''
 
 def addSkill(request):
     skill = SkillForm

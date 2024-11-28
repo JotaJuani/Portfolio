@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Project, Message, Skill, Endorsement, Comment, Question, Country
+from .models import Project, Skill, Endorsement, Comment, Question, Country, Contact
 
 
 class ProjectForm(ModelForm):
@@ -16,7 +16,23 @@ class ProjectForm(ModelForm):
         self.fields['body'].widget.attrs.update(
             {'class': 'form-control'})
 
+class ContactForm(ModelForm):
+    class Meta:
+        model = Contact
+        fields = '__all__'
+        exclude = ['is_read']
 
+    def __init__(self, *args, **kwargs):
+        super(ContactForm, self).__init__(*args, **kwargs)
+        self.fields['name'].widget.attrs.update(
+            {'class': 'form-control'})
+        self.fields['email'].widget.attrs.update(
+            {'class': 'form-control'})
+        self.fields['subject'].widget.attrs.update(
+            {'class': 'form-control'})
+        self.fields['content'].widget.attrs.update(
+            {'class': 'form-control'})
+'''
 class MessageForm(ModelForm):
     class Meta:
         model = Message
@@ -33,7 +49,7 @@ class MessageForm(ModelForm):
             {'class': 'form-control'})
         self.fields['body'].widget.attrs.update(
             {'class': 'form-control'})
-
+'''
 
 class SkillForm(ModelForm):
     class Meta:

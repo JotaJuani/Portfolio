@@ -40,7 +40,7 @@ class Tag(models.Model):
         return self.name
 
 
-class Message(models.Model):
+class Contact(models.Model):
     name = models.CharField(null=True, max_length=200)
     email = models.CharField(null=True, max_length=200)
     subject = models.CharField(null=True, max_length=200)
