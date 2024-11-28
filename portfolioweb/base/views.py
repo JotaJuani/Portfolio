@@ -83,14 +83,12 @@ def contact(request):
         if form.is_valid():
             print('the form is valid')
             name = request.POST['name']
-            email = request.POST['email']
-            subject = request.POST['subject']
-            content = request.POST['content']
+            email = request.POST['email']           
+            body = request.POST['content']
 
             email_message = EmailMessage(
                 subject=f'Contact Form from {name}',
-                body=content,
-                subject=subject,
+                body=body,                
                 from_email=email,
                 to=[settings.EMAIL_HOST_USER],
                 reply_to=[email],)

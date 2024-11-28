@@ -30,7 +30,7 @@ class ContactForm(ModelForm):
             {'class': 'form-control'})
         self.fields['subject'].widget.attrs.update(
             {'class': 'form-control'})
-        self.fields['content'].widget.attrs.update(
+        self.fields['body'].widget.attrs.update(
             {'class': 'form-control'})
 '''
 class MessageForm(ModelForm):
