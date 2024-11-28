@@ -95,9 +95,23 @@ class Country(models.Model):
         [(country.name, country.name) for country in pycountry.countries]
     )
     answer = models.CharField(max_length=200, choices=TYPES)
+    mapped_answer = models.CharField(max_length=200, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True,
                           primary_key=True, editable=False)
+
+    def save(self, *args, **kwargs):
+        # Lógica de mapeo automático
+        COUNTRY_NAME_MAPPING = {
+            "United States": "United States of America",
+            "Korea, Republic of": "South Korea",
+            "Russian Federation": "Russia",
+        }
+        # Aplica el mapeo si no se ha especificado `highcharts_name`
+        if not self.mapped_answer:
+            self.mapped_answer = COUNTRY_NAME_MAPPING.get(
+                self.answer, self.answer)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.answer
