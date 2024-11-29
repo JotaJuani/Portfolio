@@ -143,8 +143,8 @@ MEDIA_ROOT = '/vol/web/media'
 MEDIA_URL = '/static/media/'
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'jotajimnz8@gmail.com'
-EMAIL_HOST_PASSWORD = 'vgfi cozu rfrz fhjc'
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

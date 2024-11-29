@@ -32,6 +32,7 @@ class ContactForm(ModelForm):
             {'class': 'form-control'})
         self.fields['body'].widget.attrs.update(
             {'class': 'form-control'})
+        
 '''
 class MessageForm(ModelForm):
     class Meta:

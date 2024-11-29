@@ -6,7 +6,6 @@ from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
 
 
-
 def homePage(request):
     projects = Project.objects.all()
     detailedSkills = Skill.objects.exclude(body='')
@@ -16,7 +15,7 @@ def homePage(request):
     endorsement = Endorsement.objects.filter(approved=True)
 
     if request.method == 'POST':
-        form =  ContactForm(request.POST)
+        form = ContactForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, 'Message sent successfully')
@@ -69,6 +68,7 @@ def EditProject(request, pk):
     context = {'form': form}
     return render(request, 'base/project_form.html', context)
 
+
 '''
 def inboxPage(request):
     inbox = Message.objects.all().order_by('is_read')
@@ -77,30 +77,34 @@ def inboxPage(request):
     return render(request, 'base/inbox.html', context)
 '''
 
+
 def contact(request):
     if request.method == 'POST':
-        form = ContactForm(request.POST)
+        form = ContactForm(request.POST,)
         if form.is_valid():
             print('the form is valid')
-            name = request.POST['name']
-            email = request.POST['email']           
-            body = request.POST['content']
+            name = request.cleaned_data['name']
+            email = request.cleaned_data['email']
+            body = request.cleaned_data['body']
 
             email_message = EmailMessage(
                 subject=f'Contact Form from {name}',
-                body=body,                
+                body=body,
                 from_email=email,
                 to=[settings.EMAIL_HOST_USER],
                 reply_to=[email],)
             email_message.send(fail_silently=False),
-
+            form.save()
+            messages.success(
+                request, "Thank you for your message! We'll get back to you shortly.")
             print(email)
-            return render(request, 'contact/contact.html')
+            return render(request, 'base/home.html')
     else:
         form = ContactForm()
 
     context = {'form': form, }
-    return render(request, 'contact/contact.html', context)
+    return render(request, 'base/home.html', context)
+
 
 '''
 def messagePage(request, pk):
@@ -112,6 +116,7 @@ def messagePage(request, pk):
                'form': form}
     return render(request, 'base/message.html', context)
 '''
+
 
 def addSkill(request):
     skill = SkillForm
