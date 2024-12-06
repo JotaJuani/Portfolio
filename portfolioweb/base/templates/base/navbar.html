@@ -17,12 +17,7 @@
         onclick="scrollToElement('projects', event)"
         >Projects</a
       >
-      <a
-        class="nav-link"
-        href="javascript:void(0);"
-        onclick="scrollToElement('contact', event)"
-        >Contact</a
-      >
+      <a href="{% url 'contact' %}">Contact</a>
 
       <a class="nav-link" href="{% url 'chart' %}">Vote</a>
       <a
@@ -32,7 +27,7 @@
         >CV</a
       >
       {% if request.user.is_authenticated %}
-      <a class="nav-link" href="{% url 'add-project' %}">Add project</a>   
+      <a class="nav-link" href="{% url 'add-project' %}">Add project</a>
       <a class="nav-link" href="{% url 'skill-form' %}">Add Skill</a>
       {% endif %}
     </section>
