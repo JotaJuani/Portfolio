@@ -300,11 +300,13 @@ a.icon.alt:active:before {
     
     margin: 0.3rem 10px;
 }
-
-.project--image {
+.project-img {
+    display: flex;
+    justify-content: center; 
     align-items: center;
+}
+.project--image {
     margin-top: 40px;
-    
     width: 50%;
     height: 50%;
     border-radius: 8px;
