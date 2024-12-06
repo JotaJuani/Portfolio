@@ -19,7 +19,31 @@ p {
 .download-btn{
     color:  #fff;
 }
-
+#contact-section {
+    background-color: #242943; 
+    padding: 40px 20px; 
+    text-align: center; 
+  }
+  
+  #contact-section h3 {
+    color: #ffff; 
+    font-size: 2rem; 
+    margin-bottom: 20px;
+  }
+  
+  #contact-section h5 {
+    color: #747474; 
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+  }
+  
+  #contact-section .btn-primary {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+  }
+  
+  
 #footer .copyright {
     font-size: 0.8em;
     list-style: none;
@@ -491,6 +515,7 @@ form {
 .slogan{
     font-size: 24px;
     text-align: center;
+    color:#747474;
 }
 
 

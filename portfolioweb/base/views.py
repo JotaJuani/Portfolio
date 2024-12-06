@@ -36,19 +36,19 @@ def projectPage(request, pk):
             messages.success(request, 'Comment sent successfully')
 
     context = {'project': project, 'count': count,
-               'comments': comments, 'form': form,}
+               'comments': comments, 'coment_form': form,}
 
     return render(request, 'base/project.html', context)
 
 
 def AddProject(request):
-    form = ProjectForm()
+    poject_form = ProjectForm()
     if request.method == 'POST':
-        form = ProjectForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
+        poject_form = ProjectForm(request.POST, request.FILES)
+        if poject_form.is_valid():
+            poject_form.save()
             return redirect('home')
-    context = {'form': form}
+    context = {'poject_form': poject_form}
     return render(request, 'base/project_form.html', context)
 
 
@@ -82,7 +82,7 @@ def addEndorsement(request):
         messages.success(
             request, 'Thank you! Your comment was submitted and is pending approval from Juani.')
         return redirect('endorsement-form')
-    context = {'form':  form}
+    context = {'endorsement_form':  form}
 
     return render(request, 'base/endorsement_form.html', context)
 

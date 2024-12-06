@@ -6,8 +6,7 @@ from .models import Contact
 class ContactForm(ModelForm):
     class Meta:
         model = Contact
-        fields = '__all__'
-        exclude = ['is_read']
+        fields = '__all__'        
 
     def __init__(self, *args, **kwargs):
         super(ContactForm, self).__init__(*args, **kwargs)

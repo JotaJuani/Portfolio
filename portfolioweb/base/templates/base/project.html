@@ -1,10 +1,8 @@
 {% extends 'base/main.html' %} {% load static %} {% block content %}
 <div class="container">
-  
   <img class="project--image" src="{{project.thumbnail.url}}" />
 
   <h1>{{project.title}}</h1>
-  
   <hr />
   <p>{{project.body}}</p>
   <div class="comments-container">
@@ -15,13 +13,12 @@
       <div class="card-body">
         <h5>{{comment.name}}</h5>
         <small>{{comment.created|timesince}} </small>
-
         <p class="my-3">{{comment.body}}</p>
       </div>
     </div>
     {% endfor %}
     <form method="post">
-      {% csrf_token %} {% for field in form %}
+      {% csrf_token %} {% for field in coment_form %}
       <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">
           {{field.label}}</label
@@ -32,6 +29,5 @@
       <input class="btn btn-primary" type="submit" value="Comment" />
     </form>
   </div>
-
   {% endblock content %}
 </div>

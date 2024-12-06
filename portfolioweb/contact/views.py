@@ -1,19 +1,18 @@
-
 from django.shortcuts import render, redirect
 from .models import Contact
-from .forms import  ContactForm
+from .forms import ContactForm
 from django.contrib import messages
 from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
 
 def contact(request):
     if request.method == 'POST':
-        form = ContactForm(request.POST,)
+        form = ContactForm(request.POST)
         if form.is_valid():
             print('the form is valid')
-            name = request.cleaned_data['name']
-            email = request.cleaned_data['email']
-            body = request.cleaned_data['body']
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            body = form.cleaned_data['body']
 
             email_message = EmailMessage(
                 subject=f'Contact Form from {name}',
@@ -27,9 +26,11 @@ def contact(request):
                 request, "Thank you for your message! We'll get back to you shortly.")
             print(email)
             return render(request, 'base/home.html')
+        else:
+            messages.error(
+                request, "There was an error with your submission. Please try again.")
     else:
         form = ContactForm()
 
-    context = {'form': form, }
-    return render(request, 'base/home.html', context)
-
+    context = {'form': form}
+    return render(request, 'contact/contact_form.html', context)
