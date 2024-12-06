@@ -43,8 +43,14 @@ p {
     border-radius: 5px;
   }
   
-  
+  #footer .copywrong {
+    color: #fff;
+    font-size: 14px;
+    text-align: right; /* Alinea el texto a la derecha */
+    margin-left: auto; /* Empuja el copyright a la derecha */
+  }
 #footer .copyright {
+    
     font-size: 0.8em;
     list-style: none;
     padding-left: 0;
