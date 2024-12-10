@@ -5,11 +5,18 @@
   <div class="inner">
     <section class="section--4">
       <div class="container">
-        {% if success %}
-        <div class="alert alert-success">
-          Thank you for your message! We'll get back to you shortly.
+        {% if messages %}
+        <div>
+          {% for message in messages %}
+          <div
+            class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}"
+          >
+            {{ message }}
+          </div>
+          {% endfor %}
         </div>
         {% endif %}
+
         <form class="contact--form" method="POST">
           {% csrf_token %} {% for field in form %}
           <div class="mb-3">
@@ -55,6 +62,5 @@
     </section>
   </div>
 </section>
-
 
 {% endblock content %}

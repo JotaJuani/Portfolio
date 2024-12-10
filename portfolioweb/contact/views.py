@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
 
+
 def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -23,9 +24,9 @@ def contact(request):
             email_message.send(fail_silently=False),
             form.save()
             messages.success(
-                request, "Thank you for your message! We'll get back to you shortly.")
-            print(email)
-            return render(request, 'base/home.html')
+                request, "Thank you for your message! I'll get back to you shortly.")
+
+            return redirect('contact')
         else:
             messages.error(
                 request, "There was an error with your submission. Please try again.")

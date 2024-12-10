@@ -16,7 +16,7 @@ def votingData(request):
     return Response({'backend': backend,
                      'frontend': frontend,
                      'fullstack': fullstack,
-                     'recruiter': recruiter, })
+                     'recruiter': recruiter,})
 
 
 @api_view(['GET'])

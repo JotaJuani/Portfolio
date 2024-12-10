@@ -13,7 +13,7 @@ from decouple import config
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-
+from django.contrib.messages import constants as messages
 
 load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -81,6 +81,13 @@ TEMPLATES = [
     },
 ]
 
+MESSAGE_TAGS = {
+    messages.DEBUG: 'debug',
+    messages.INFO: 'info',
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.ERROR: 'danger',
+}
 WSGI_APPLICATION = 'portfolioweb.wsgi.application'
 
 
