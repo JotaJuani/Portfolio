@@ -88,6 +88,7 @@ MESSAGE_TAGS = {
     messages.WARNING: 'warning',
     messages.ERROR: 'danger',
 }
+
 WSGI_APPLICATION = 'portfolioweb.wsgi.application'
 
 
